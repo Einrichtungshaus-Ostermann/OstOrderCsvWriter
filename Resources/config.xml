@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../engine/Shopware/Components/Plugin/schema/config.xsd">
+    <elements>
+
+        <element type="button">
+            <name>defaultButton</name>
+            <label><![CDATA[<b>Allgemeine Einstellungen</b>]]></label>
+        </element>
+        <element type="text" required="true">
+            <name>securePayments</name>
+            <label lang="de">Sichere Zahlungsarten</label>
+            <description>Die Sicheren Zahlungsarten. Beispiel "1,2,3"</description>
+        </element>
+        <element type="text" required="true">
+            <name>paymentArray</name>
+            <label lang="de">Zahlungsarten</label>
+            <description>Die Assoziation für die Zahlungsarten IDs. Beispiel: "ZahlungsID|ExportString,33|11"
+            </description>
+        </element>
+        <element type="text" required="true">
+            <name>shippingArray</name>
+            <label lang="de">Versandarten</label>
+            <description>Die Assoziation für die Versandarten IDs. Beispiel: "VersandID|ExportString,9|04"</description>
+        </element>
+        <element type="text" required="false">
+            <name>sellerIdField</name>
+            <label lang="de">Verkäufernummer Feld</label>
+            <description>Das Feld in den Order Attributen wo die Verkäufernummer steht</description>
+        </element>
+        <element type="text" required="true">
+            <name>csvFolder</name>
+            <label lang="de">Ordner für die CSV Dateien</label>
+            <description>Relativ zu dem basefolder</description>
+        </element>
+        <element type="text" required="true">
+            <name>csvPrefix</name>
+            <label lang="de">CSV Prefix</label>
+            <description>Der Prefix der CSV Datei</description>
+        </element>
+
+    </elements>
+</config>

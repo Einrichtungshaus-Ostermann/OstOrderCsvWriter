@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+
+        <!-- configuration -->
+        <service id="ost_order_csv_writer.configuration" class="OstFoundation\Services\ConfigurationService">
+            <factory service="ost_foundation.services.configuration_service" method="getConfig"/>
+            <argument type="string">OstOrderCsvWriter</argument>
+        </service>
+
+        <service id="ost_order_csv_writer.services.csv_export_service" class="OstOrderCsvWriter\Services\CsvExportService">
+            <argument type="service" id="models"/>
+            <argument type="service" id="ost_order_csv_writer.configuration"/>
+        </service>
+
+    </services>
+</container>
