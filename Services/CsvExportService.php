@@ -173,7 +173,7 @@ class CsvExportService implements OrderExportServiceInterface
             'Ausfuehrungskennzeichen' => substr_count($orderDetail->getArticleNumber(), '-') + 1 > 1 ? str_pad(explode('-', $orderDetail->getArticleNumber())[1], 5, '0', STR_PAD_LEFT) : '00000',
             'Ausfuehrung'             => '', //str_replace(["\r", "\n", '"', ';', "'", '&'], '', $ausfuerung),
             'Abholpreis'              => number_format($orderDetail->getPrice(), 2, '.', ''),
-            'Montage J/N'             => $orderDetail->getAttribute()->getBestitMontage(),
+            'Montage J/N'             => $this->getAssemblySurcharge($orderDetail),
             'EAN13'                   => $orderDetail->getEan(),
             'Herstellerartikelnummer' => $article === null ? '' : $article->getAttribute()->getAttr9(),
             'Diomex Konfig-ID'        => '',
@@ -188,6 +188,11 @@ class CsvExportService implements OrderExportServiceInterface
         ];
 
         return $row;
+    }
+
+    private function getAssemblySurcharge(Detail $orderDetail)
+    {
+        return $orderDetail->getAttribute()->getBestitMontage();
     }
 
     public function getCheckFileRow($orderAmount, $positionAmount, $totalPrice): array
