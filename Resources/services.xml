@@ -10,7 +10,7 @@
             <argument type="string">OstOrderCsvWriter</argument>
         </service>
 
-        <service id="ost_order_csv_writer.services.csv_export_service" class="OstOrderCsvWriter\Services\CsvExportService">
+        <service id="ost_order_csv_writer.csv_export_service" class="OstOrderCsvWriter\Services\CsvExportService">
             <argument type="service" id="models"/>
             <argument type="service" id="ost_order_csv_writer.configuration"/>
         </service>
