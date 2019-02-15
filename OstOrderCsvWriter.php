@@ -3,7 +3,7 @@
 /**
  * Einrichtungshaus Ostermann GmbH & Co. KG - Order Csv Writer
  *
- * Interface for OstOrderExport to export to a CSV File
+ * Generates .csv files...
  *
  * 1.0.0
  * - initial release
