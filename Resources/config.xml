@@ -7,36 +7,50 @@
             <name>defaultButton</name>
             <label><![CDATA[<b>Allgemeine Einstellungen</b>]]></label>
         </element>
-        <element type="text" required="true">
-            <name>securePayments</name>
-            <label lang="de">Sichere Zahlungsarten</label>
-            <description>Die Sicheren Zahlungsarten. Beispiel "1,2,3"</description>
+
+        <element type="number">
+            <name>orderHours</name>
+            <label>Zeitraum in Stunden</label>
+            <value>24</value>
+            <description>Welcher Zeitraum soll exportiert werden?</description>
         </element>
-        <element type="text" required="true">
-            <name>paymentArray</name>
-            <label lang="de">Zahlungsarten</label>
-            <description>Die Assoziation für die Zahlungsarten IDs. Beispiel: "ZahlungsID|ExportString,33|11"
-            </description>
+
+        <element type="button">
+            <name>defaultOptionsButton</name>
+            <label><![CDATA[<b>Standardwerte Einstellungen</b>]]></label>
         </element>
-        <element type="text" required="true">
-            <name>shippingArray</name>
-            <label lang="de">Versandarten</label>
-            <description>Die Assoziation für die Versandarten IDs. Beispiel: "VersandID|ExportString,9|04"</description>
+
+        <element type="text">
+            <name>defaultSellerId</name>
+            <label>Verkäufer-Nummer</label>
+            <value>50</value>
+            <description>Die standard Verkäufer-Nummer.</description>
         </element>
-        <element type="text" required="false">
-            <name>sellerIdField</name>
-            <label lang="de">Verkäufernummer Feld</label>
-            <description>Das Feld in den Order Attributen wo die Verkäufernummer steht</description>
+
+        <element type="text">
+            <name>defaultProvision</name>
+            <label>Provisions-Schlüssel</label>
+            <value>99</value>
+            <description>Der standard Provisions-Schlüssel.</description>
         </element>
-        <element type="text" required="true">
+
+        <element type="button">
+            <name>fileButton</name>
+            <label><![CDATA[<b>Ordner/Datei Einstellungen</b>]]></label>
+        </element>
+
+        <element type="text">
             <name>csvFolder</name>
-            <label lang="de">Ordner für die CSV Dateien</label>
-            <description>Relativ zu dem basefolder</description>
+            <label>Ordner für die .csv Dateien</label>
+            <value>sync/export</value>
+            <description>Der Ordner sollte relativ zum Stammverzeichnis angegeben werden.</description>
         </element>
-        <element type="text" required="true">
+
+        <element type="text">
             <name>csvPrefix</name>
-            <label lang="de">CSV Prefix</label>
-            <description>Der Prefix der CSV Datei</description>
+            <label>Datei Präfix</label>
+            <value>online-shop</value>
+            <description>Ein optionaler Präfix der .csv Datei.</description>
         </element>
 
     </elements>

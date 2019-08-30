@@ -12,6 +12,9 @@
 
 namespace OstOrderCsvWriter\Setup;
 
+use Exception;
+use Shopware\Bundle\AttributeBundle\Service\CrudService;
+use Shopware\Components\Model\ModelManager;
 use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\InstallContext;
 
@@ -34,20 +37,38 @@ class Update
     /**
      * ...
      *
+     * @var ModelManager
+     */
+    protected $modelManager;
+
+    /**
+     * ...
+     *
+     * @var CrudService
+     */
+    protected $crudService;
+
+    /**
+     * ...
+     *
      * @param Plugin         $plugin
      * @param InstallContext $context
+     * @param ModelManager   $modelManager
+     * @param CrudService    $crudService
      */
-    public function __construct(Plugin $plugin, InstallContext $context)
+    public function __construct(Plugin $plugin, InstallContext $context, ModelManager $modelManager, CrudService $crudService)
     {
         // set params
         $this->plugin = $plugin;
         $this->context = $context;
+        $this->modelManager = $modelManager;
+        $this->crudService = $crudService;
     }
 
     /**
      * ...
      */
-    public function install(): void
+    public function install()
     {
         // install updates
         $this->update('0.0.0');
@@ -58,7 +79,40 @@ class Update
      *
      * @param string $version
      */
-    public function update($version): void
+    public function update($version)
     {
+        // switch old version
+        switch ($version) {
+            case '0.0.0':
+            case '1.0.0':
+                $this->updateAttributes();
+        }
+    }
+
+    /**
+     * ...
+     *
+     * @throws Exception
+     */
+    private function updateAttributes()
+    {
+        // ...
+        foreach (Install::$attributes as $table => $attributes) {
+            foreach ($attributes as $attribute) {
+                try {
+                    $this->crudService->update(
+                        $table,
+                        $attribute['column'],
+                        $attribute['type'],
+                        $attribute['data']
+                    );
+                } catch (Exception $exception) {}
+            }
+        }
+
+        // ...
+        try {
+            $this->modelManager->generateAttributeModels(array_keys(Install::$attributes));
+        } catch (Exception $exception) {}
     }
 }

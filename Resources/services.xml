@@ -10,9 +10,26 @@
             <argument type="string">OstOrderCsvWriter</argument>
         </service>
 
-        <service id="ost_order_csv_writer.csv_export_service" class="OstOrderCsvWriter\Services\CsvExportService">
+        <!-- commands -->
+        <service id="ost_order_csv_writer.commands.sync_articles_command" class="OstOrderCsvWriter\Commands\ExportOrdersCommand">
+            <tag name="console.command" command="ost-order-csv-writer:export-orders"/>
+            <argument type="service" id="db"/>
             <argument type="service" id="models"/>
             <argument type="service" id="ost_order_csv_writer.configuration"/>
+        </service>
+
+        <!-- plugin services -->
+        <service id="ost_order_csv_writer.order_service" class="OstOrderCsvWriter\Services\OrderService">
+            <argument type="service" id="models" />
+            <argument type="service" id="ost_order_csv_writer.configuration" />
+        </service>
+
+        <service id="ost_order_csv_writer.parser_service" class="OstOrderCsvWriter\Services\ParserService">
+            <argument type="service" id="models" />
+            <argument type="service" id="ost_order_csv_writer.configuration" />
+        </service>
+
+        <service id="ost_order_csv_writer.csv_writer_service" class="OstOrderCsvWriter\Services\CsvWriterService">
         </service>
 
     </services>

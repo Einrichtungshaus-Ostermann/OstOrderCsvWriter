@@ -3,10 +3,14 @@
 /**
  * Einrichtungshaus Ostermann GmbH & Co. KG - Order Csv Writer
  *
- * Generates .csv files...
+ * Writes orders into three different .csv files to be imported by
+ * the IWM. The orders are written through a console command.
  *
  * 1.0.0
  * - initial release
+ *
+ * 1.1.0
+ * - completely refactored
  *
  * @package   OstOrderCsvWriter
  *
@@ -70,7 +74,9 @@ class OstOrderCsvWriter extends Plugin
         // update it to current version
         $updater = new Setup\Update(
             $this,
-            $context
+            $context,
+            $this->container->get('models'),
+            $this->container->get('shopware_attribute.crud_service')
         );
         $updater->install();
 
@@ -88,7 +94,9 @@ class OstOrderCsvWriter extends Plugin
         // update the plugin
         $updater = new Setup\Update(
             $this,
-            $context
+            $context,
+            $this->container->get('models'),
+            $this->container->get('shopware_attribute.crud_service')
         );
         $updater->update($context->getCurrentVersion());
 
