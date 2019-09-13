@@ -12,6 +12,9 @@
  * 1.1.0
  * - completely refactored
  *
+ * 1.1.1
+ * - fixed customer comment
+ *
  * @package   OstOrderCsvWriter
  *
  * @author    Tim Windelschmidt <tim.windelschmidt@fionera.de>

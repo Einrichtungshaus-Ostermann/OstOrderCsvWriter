@@ -142,7 +142,7 @@ class ParserService
             'Standort'                  => '',
             'lieferkosten'              => $order->getInvoiceShipping(),
             'mwst'                      => ($order->getInvoiceAmount() + $order->getInvoiceShipping()) - ($order->getInvoiceAmountNet() + $order->getInvoiceShippingNet()),
-            'mitteilung'                => str_replace(["\r", "\n", '"', ';', "'", '&'], '', $order->getComment()),
+            'mitteilung'                => str_replace(["\r", "\n", '"', ';', "'", '&'], '', $order->getCustomerComment()),
             'transaction_id'            => $order->getTransactionId(),
             'Wunschtermin'              => '',
             'Terminart'                 => '',
