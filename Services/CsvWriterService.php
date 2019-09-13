@@ -40,7 +40,7 @@ class CsvWriterService
             $file = fopen($directory . '/' . $filePrefix .  '-' . $key . '.csv', 'cb+');
 
             // write the header
-            fwrite($file, iconv('UTF-8', 'Windows-1252', implode(array_keys($content[0]), ';')) . "\n");
+            fwrite($file, iconv('UTF-8', 'Windows-1252//IGNORE', implode(array_keys($content[0]), ';')) . "\n");
 
             // loop every row
             foreach ($content as $row) {
@@ -51,7 +51,7 @@ class CsvWriterService
                 }
 
                 // write the row
-                fwrite($file, iconv('UTF-8', 'Windows-1252', implode($row, ';')) . "\n");
+                fwrite($file, iconv('UTF-8', 'Windows-1252//IGNORE', implode($row, ';')) . "\n");
             }
 
             // close the file

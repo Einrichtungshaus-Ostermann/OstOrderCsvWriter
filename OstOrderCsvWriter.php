@@ -15,6 +15,12 @@
  * 1.1.1
  * - fixed customer comment
  *
+ * 1.1.2
+ * - removed unused files
+ * - fixed conversion to windows-1252 charset
+ * - fixed valid companies for articles
+ * - fixed article numbers
+ *
  * @package   OstOrderCsvWriter
  *
  * @author    Tim Windelschmidt <tim.windelschmidt@fionera.de>

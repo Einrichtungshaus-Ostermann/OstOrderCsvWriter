@@ -168,13 +168,29 @@ class ParserService
         /** @var ArticleDetail $article */
         $article = $this->modelManager->getRepository(ArticleDetail::class)->findOneBy(['number' => $position->getArticleNumber()]);
 
+        // fix old faulty numbers
+        if ($position->getArticleNumber() === "sw-payment") {
+            // set it
+            $position->setArticleNumber('NL1');
+        }
+
+        // fix old faulty article numbers
+        $number = ((string) ((int) str_replace('-', '', $position->getArticleNumber())) === (string) str_replace('-', '', $position->getArticleNumber()))
+            ? str_pad(explode('-', $position->getArticleNumber())[0], 7, '0', STR_PAD_LEFT)
+            : $position->getArticleNumber();
+
+        // set the variant flag
+        $variant = substr_count($position->getArticleNumber(), '-') + 1 > 1
+            ? str_pad((string) intval(explode('-', $position->getArticleNumber())[1]), 5, '0', STR_PAD_LEFT)
+            : '';
+
         // return parsed position
         return [
             'Firma'                   => $this->getMandator($article),
             'Bestellnummer'           => str_pad($position->getOrder()->getNumber(), 9, '0', STR_PAD_LEFT),
             'Menge'                   => $position->getQuantity(),
-            'Artikelnummer'           => str_pad(explode('.', $position->getArticleNumber())[0], 7, '0', STR_PAD_LEFT),
-            'Ausfuehrungskennzeichen' => substr_count($position->getArticleNumber(), '-') + 1 > 1 ? str_pad(explode('-', $position->getArticleNumber())[1], 5, '0', STR_PAD_LEFT) : '00000',
+            'Artikelnummer'           => $number,
+            'Ausfuehrungskennzeichen' => $variant,
             'Ausfuehrung'             => '',
             'Abholpreis'              => number_format($position->getPrice(), 2, '.', ''),
             'Montage J/N'             => $this->getAssemblySurcharge($order, $position),
@@ -274,9 +290,9 @@ class ParserService
     private function getMandator($article)
     {
         // ...
-        return ($article instanceof ArticleDetail && $article->getAttribute() instanceof ArticleAttribute)
-            ? $article->getAttribute()->getAttr1()
-            : '';
+        return ($article instanceof ArticleDetail && $article->getAttribute() instanceof ArticleAttribute && in_array((string) $article->getAttribute()->getAttr1(), array('1', '3')))
+            ? (string) $article->getAttribute()->getAttr1()
+            : '1';
     }
 
     /**
