@@ -21,6 +21,9 @@
  * - fixed valid companies for articles
  * - fixed article numbers
  *
+ * 1.1.3
+ * - changed separator between name and date
+ *
  * @package   OstOrderCsvWriter
  *
  * @author    Tim Windelschmidt <tim.windelschmidt@fionera.de>

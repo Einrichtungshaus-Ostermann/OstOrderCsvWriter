@@ -97,7 +97,7 @@ class ExportOrdersCommand extends ShopwareCommand
 
         // create vars
         $directory = Shopware()->Container()->getParameter('shopware.app.rootdir') . trim($this->configuration['csvFolder'], '/');
-        $filePrefix = $this->configuration['csvPrefix'] . '-' . date('YmdHis') . '-' . substr(md5(microtime()), 0, 8);
+        $filePrefix = $this->configuration['csvPrefix'] . date('YmdHis') . '-' . substr(md5(microtime()), 0, 8);
 
         // log
         $output->writeln('directory: ' . $directory);

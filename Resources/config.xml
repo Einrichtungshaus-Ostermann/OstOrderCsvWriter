@@ -49,7 +49,7 @@
         <element type="text">
             <name>csvPrefix</name>
             <label>Datei Präfix</label>
-            <value>online-shop</value>
+            <value>online-shop-</value>
             <description>Ein optionaler Präfix der .csv Datei.</description>
         </element>
 
