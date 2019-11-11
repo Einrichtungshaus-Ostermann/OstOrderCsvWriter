@@ -104,7 +104,7 @@ class ParserService
         $shipping = ($order->getShipping() === null) ? $order->getBilling() : $order->getShipping();
 
         // return parsed order
-        return [
+        $arr = [
             'Bestellnummer'             => str_pad($order->getNumber(), 9, '0', STR_PAD_LEFT),
             'Datum'                     => $order->getOrderTime()->format('Y-m-d'),
             'Anrede'                    => $billing->getSalutation() === 'ms' ? 'Frau' : 'Herr',
@@ -153,6 +153,19 @@ class ParserService
             'Zahlungsreferenz intern'   => $order->getTransactionId(),
             'Zahlungsreferenz extern'   => $order->getTransactionId(),
         ];
+
+        // fire filter event to make sure other plugins can filter this one
+        $arr = Shopware()->Events()->filter(
+            "ost-order-csv-writer--filter-order",
+            $arr,
+            array(
+                'subject' => $this,
+                'order' => $order
+            )
+        );
+
+        // and return it
+        return $arr;
     }
 
     /**

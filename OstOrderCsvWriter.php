@@ -24,6 +24,9 @@
  * 1.1.3
  * - changed separator between name and date
  *
+ * 1.1.4
+ * - added event to change the order csv
+ *
  * @package   OstOrderCsvWriter
  *
  * @author    Tim Windelschmidt <tim.windelschmidt@fionera.de>
