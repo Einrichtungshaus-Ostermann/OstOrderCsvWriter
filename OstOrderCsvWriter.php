@@ -27,6 +27,9 @@
  * 1.1.4
  * - added event to change the order csv
  *
+ * 1.1.5
+ * - fixed assembly status
+ *
  * @package   OstOrderCsvWriter
  *
  * @author    Tim Windelschmidt <tim.windelschmidt@fionera.de>

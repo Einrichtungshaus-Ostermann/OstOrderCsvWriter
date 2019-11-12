@@ -206,7 +206,7 @@ class ParserService
             'Ausfuehrungskennzeichen' => $variant,
             'Ausfuehrung'             => '',
             'Abholpreis'              => number_format($position->getPrice(), 2, '.', ''),
-            'Montage J/N'             => $this->getAssemblySurcharge($order, $position),
+            'Montage J/N'             => $this->getAssemblyStatus($order, $position),
             'EAN13'                   => $position->getEan(),
             'Herstellerartikelnummer' => $this->getArticleSupplierNumber($article),
             'Diomex Konfig-ID'        => '',
@@ -249,7 +249,7 @@ class ParserService
     {
         // floor is saved within additional line
         return (empty((string) $address->getAdditionalAddressLine1()))
-            ? 'EG'
+            ? 'Erdgeschoss'
             : (string) $address->getAdditionalAddressLine1();
     }
 
@@ -261,9 +261,31 @@ class ParserService
      *
      * @return string
      */
-    private function getAssemblySurcharge(Order $order, Detail $position)
+    private function getAssemblyStatus(Order $order, Detail $position)
     {
-        // get via attribute
+        // do we have an optional assembly?
+        if ($position->getAttribute() instanceof \Shopware\Models\Attribute\OrderDetail && (boolean) $position->getAttribute()->getOstArticleAssemblySurchargeStatus() === true) {
+            // return yes
+            return 'J';
+        }
+
+        // get the article attributes
+        $query = '
+            SELECT attribute.attr18
+            FROM s_articles_details AS article
+                LEFT JOIN s_articles_attributes AS attribute
+                    ON article.id = attribute.articledetailsID
+            WHERE article.ordernumber = ?
+        ';
+        $type = (integer) Shopware()->Db()->fetchOne($query, $position->getArticleNumber());
+
+        // are we full service?
+        if ($type === 2) {
+            // ok
+            return 'J';
+        }
+
+        // ...
         return '';
     }
 
