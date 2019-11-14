@@ -86,6 +86,13 @@ class Update
             case '0.0.0':
             case '1.0.0':
                 $this->updateAttributes();
+            case '1.1.0':
+            case '1.1.1':
+            case '1.1.2':
+            case '1.1.3':
+            case '1.1.4':
+            case '1.1.5':
+                $this->updateAttributes();
         }
     }
 

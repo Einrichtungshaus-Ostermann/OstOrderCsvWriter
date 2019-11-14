@@ -57,6 +57,7 @@ class OrderService
         // set it up with default values
         $builder->select(array('orders', 'details', 'customer', 'billing', 'billingAttribute', 'shipping', 'shippingAttribute', 'payment', 'paymentAttribute', 'dispatch', 'dispatchAttribute'))
             ->from(Order::class, 'orders')
+            ->leftJoin('orders.attribute', 'ordersAttribute')
             ->leftJoin('orders.details', 'details')
             ->leftJoin('orders.customer', 'customer')
             ->leftJoin('orders.billing', 'billing')
@@ -71,7 +72,7 @@ class OrderService
             ->leftJoin('dispatch.attribute', 'dispatchAttribute')
             ->where('orderStatus.id = 0')
             ->andWhere('orders.number > 0')
-            ->andWhere('orders.orderTime >= :startDate')
+            ->andWhere('((orders.orderTime >= :startDate) OR (ordersAttribute.ostOrderCsvWriterImportOrder = 1))')
             ->andWhere('((paymentAttribute.ostOrderCsvWriterSecure = 1) OR (paymentStatus.id = :statusCompletelyPaid))')
             ->setParameter('statusCompletelyPaid', Status::PAYMENT_STATE_COMPLETELY_PAID)
             ->setParameter('startDate', date('Y-m-d H:i:s', strtotime('-' . (integer) $this->configuration['orderHours'] . ' hours')))
@@ -79,6 +80,14 @@ class OrderService
 
         // get the orders
         $orders = $builder->getQuery()->getResult();
+
+        // reset every order import flag
+        $query = '
+            UPDATE s_order_attributes
+            SET ost_order_csv_writer_import_order = 0
+            WHERE ost_order_csv_writer_import_order = 1
+        ';
+        Shopware()->Db()->query($query);
 
         // return them
         return $orders;

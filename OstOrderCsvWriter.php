@@ -30,6 +30,9 @@
  * 1.1.5
  * - fixed assembly status
  *
+ * 1.2.0
+ * - added order attribute to force an export of an order
+ *
  * @package   OstOrderCsvWriter
  *
  * @author    Tim Windelschmidt <tim.windelschmidt@fionera.de>

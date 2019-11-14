@@ -64,7 +64,21 @@ class Install
                     'position'         => 1400
                 ]
             ]
-        ]
+        ],
+        's_order_attributes' => [
+            [
+                'column' => 'ost_order_csv_writer_import_order',
+                'type'   => 'boolean',
+                'data'   => [
+                    'label'            => 'IWM Export aktivieren',
+                    'helpText'         => 'Soll diese Bestellung für den nächsten IMW Import exportiert werden - unabhängig vom Datum? Bestell- und Zahlungsstatus müssen dennoch valide sein. Nach einem erfolgten Import wird dieses Freitextfeld automatisch wieder deaktiviert.',
+                    'translatable'     => false,
+                    'displayInBackend' => true,
+                    'custom'           => false,
+                    'position'         => 1410
+                ]
+            ]
+        ],
     ];
 
     /**
