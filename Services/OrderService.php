@@ -51,6 +51,24 @@ class OrderService
      */
     public function get()
     {
+        // get every order which should get imported by flag
+        $query = '
+            SELECT orderID
+            FROM s_order_attributes
+            WHERE ost_order_csv_writer_import_order = 1
+        ';
+        $ids = Shopware()->Db()->fetchAll($query);
+
+        // loop every order
+        foreach ($ids as $arr) {
+            // get the order id
+            $id = (integer) $arr['orderID'];
+
+            // set status
+            Shopware()->Modules()->Order()->setOrderStatus($id, 0, false, null);
+            Shopware()->Modules()->Order()->setPaymentStatus($id, 17, false, null);
+        }
+
         // create a query builder
         $builder = $this->modelManager->createQueryBuilder();
 

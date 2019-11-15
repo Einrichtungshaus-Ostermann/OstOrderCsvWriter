@@ -33,6 +33,9 @@
  * 1.2.0
  * - added order attribute to force an export of an order
  *
+ * 1.2.1
+ * - changed order and payment status to open when force importing an order
+ *
  * @package   OstOrderCsvWriter
  *
  * @author    Tim Windelschmidt <tim.windelschmidt@fionera.de>
