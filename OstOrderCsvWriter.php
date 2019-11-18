@@ -36,6 +36,9 @@
  * 1.2.1
  * - changed order and payment status to open when force importing an order
  *
+ * 1.2.2
+ * - added number validation to phone number
+ *
  * @package   OstOrderCsvWriter
  *
  * @author    Tim Windelschmidt <tim.windelschmidt@fionera.de>
