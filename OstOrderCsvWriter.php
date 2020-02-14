@@ -39,6 +39,9 @@
  * 1.2.2
  * - added number validation to phone number
  *
+ * 1.2.3
+ * - fixed definition of "secure payment method"
+ *
  * @package   OstOrderCsvWriter
  *
  * @author    Tim Windelschmidt <tim.windelschmidt@fionera.de>
