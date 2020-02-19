@@ -42,6 +42,9 @@
  * 1.2.3
  * - fixed definition of "secure payment method"
  *
+ * 1.2.4
+ * - fixed forced export of orders with secure payment methods
+ *
  * @package   OstOrderCsvWriter
  *
  * @author    Tim Windelschmidt <tim.windelschmidt@fionera.de>

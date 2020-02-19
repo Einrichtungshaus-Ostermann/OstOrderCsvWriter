@@ -91,7 +91,7 @@ class OrderService
             ->where('orderStatus.id = 0')
             ->andWhere('orders.number > 0')
             ->andWhere('((orders.orderTime >= :startDate) OR (ordersAttribute.ostOrderCsvWriterImportOrder = 1))')
-            ->andWhere('(((paymentAttribute.ostOrderCsvWriterSecure = 0) OR (paymentAttribute.ostOrderCsvWriterSecure IS NULL)) OR ((paymentAttribute.ostOrderCsvWriterSecure = 1) AND (paymentStatus.id IN (:statusCompletelyPaid, :statusCreditAccepted))))')
+            ->andWhere('(((((paymentAttribute.ostOrderCsvWriterSecure = 0) OR (paymentAttribute.ostOrderCsvWriterSecure IS NULL)) OR ((paymentAttribute.ostOrderCsvWriterSecure = 1) AND (paymentStatus.id IN (:statusCompletelyPaid, :statusCreditAccepted))))) OR (ordersAttribute.ostOrderCsvWriterImportOrder = 1))')
             ->setParameter('statusCompletelyPaid', Status::PAYMENT_STATE_COMPLETELY_PAID)
             ->setParameter('statusCreditAccepted', Status::PAYMENT_STATE_THE_CREDIT_HAS_BEEN_ACCEPTED)
             ->setParameter('startDate', date('Y-m-d H:i:s', strtotime('-' . (integer) $this->configuration['orderHours'] . ' hours')))
